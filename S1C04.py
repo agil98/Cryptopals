@@ -2,9 +2,11 @@ import binascii
 
 def decode(ciphertext):
     strings = []
-    for char_value in range(65, 122):
+    for char_value in range(0, 122):
         decoded = ''.join(chr(b ^ char_value) for b in ciphertext)
-        strings.append(decoded)
+        decoded = decoded.strip('\n')
+        if all(i.isalpha() or i.isspace() for i in decoded):
+            strings.append(decoded)
     return strings
     
 def main():
@@ -28,13 +30,11 @@ def main():
             ciphertext = binascii.unhexlify(enconded_str)
             possible_strings = decode(ciphertext)
             for string in possible_strings:
-                total = sum(char_frequencies.get(s, 0) for s in string)
+                total = sum(char_frequencies.get(s.lower(), 0) for s in string)
                 if total > max:
                     max = total
                     message = string
-
-    print(max)
-    print(message)
+    print("score: ", max, "\n\message: ", message)
 
 if __name__ == '__main__':
     main()
