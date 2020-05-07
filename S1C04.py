@@ -24,7 +24,7 @@ def main():
         'y': .01974, 'z': .00074
     }
 
-    with open('input.txt', 'r') as fp:
+    with open('S1C04_Input.txt', 'r') as fp:
         for line in fp:
             enconded_str =  line.strip()
             ciphertext = binascii.unhexlify(enconded_str)
